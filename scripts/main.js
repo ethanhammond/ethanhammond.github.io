@@ -57,12 +57,12 @@ function init() {
   var loader = new THREE.STLLoader();
       loader.addEventListener('load', function (event){
           var geometry = event.content;
-          var material = new THREE.MeshLambertMaterial({ ambient: 0xFBB917,color: 0xfdd017 });
+          var material = new THREE.MeshLambertMaterial({ ambient: 0xFBB917,color: 0xD3D3D3 });
           var mesh = new THREE.Mesh(geometry, material);
           scene.add(mesh);});
 
       // STL file to be loaded
-      loader.load('assets/body1.stl');
+      loader.load('./assets/Body1.stl');
 
   //Place output of renderer in HTML
   $("#WebGL-output").append(renderer.domElement);
