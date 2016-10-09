@@ -6,6 +6,9 @@
  */
 
 "use strict";
+
+var controls;
+
 function init() {
 
   var stats = initStats();
@@ -39,18 +42,19 @@ function init() {
   scene.add(plane);
 
   //Set camera position and orientation
-  camera.position.x = -30;
-  camera.position.y = 60;
-  camera.position.z = 30;
+  camera.position.x = 100;
+  camera.position.y = 100;
+  camera.position.z = 100;
   camera.lookAt(scene.position);
 
   //Create spotlight aimed at objects and add to scene
   var pointLight = new THREE.PointLight(0xffffff);
-  pointLight.position.set( -40, -20, -10);
+  pointLight.position.set( 40, 60, -10);
   scene.add(pointLight);
 
-  //Allow shadows to be rendered by the spotlight
-  pointLight.castShadow = true;
+  //Add coordinate axis
+  /*var axes = new THREE.AxisHelper( 100 );
+  scene.add(axes);*/
 
   //Load STL file from fixed location
   var loader = new THREE.STLLoader();
@@ -58,6 +62,8 @@ function init() {
           var geometry = event.content;
           var material = new THREE.MeshLambertMaterial({ ambient: 0xFBB917,color: 0xD3D3D3 });
           var mesh = new THREE.Mesh(geometry, material);
+          mesh.rotation.x = Math.PI;
+          mesh.rotation.z = Math.PI / 2;
           scene.add(mesh);});
 
       // STL file to be loaded
@@ -75,7 +81,6 @@ function init() {
 
     requestAnimationFrame(renderScene);
 
-    //orbitControls.update();
     //Render the animation
     renderer.render(scene, camera);
   }
@@ -91,7 +96,13 @@ function init() {
   }
 }
 
+function animate() {
+  requestAnimationFrame( animate );
+  controls.update();
+}
+
 window.onload = function() {
   init();
+  animate();
 };
 
