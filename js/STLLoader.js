@@ -315,7 +315,7 @@ if ( typeof DataView === 'undefined'){
                 sign = 1 - (2 * (b[7] >> 7)),
                 exponent = ((((b[7] << 1) & 0xff) << 3) | (b[6] >> 4)) - ((1 << 10) - 1),
 
-            // Binary operators such as | and << operate on 32 bit values, using + and Math.pow(2) instead
+                // Binary operators such as | and << operate on 32 bit values, using + and Math.pow(2) instead
                 mantissa = ((b[6] & 0x0f) * Math.pow(2, 48)) + (b[5] * Math.pow(2, 40)) + (b[4] * Math.pow(2, 32)) +
                     (b[3] * Math.pow(2, 24)) + (b[2] * Math.pow(2, 16)) + (b[1] * Math.pow(2, 8)) + b[0];
 
@@ -386,4 +386,5 @@ if ( typeof DataView === 'undefined'){
 
     };
 
-} 
+}
+
