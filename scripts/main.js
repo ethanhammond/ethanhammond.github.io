@@ -26,7 +26,7 @@ function awaitButtonClicks() {
     });
 
     $(".gfxcard").click( function() {
-        object = "gfxcard";
+        object = "card";
         objectHasValue = true;
         $(".viewer").show();
         $(".footer").show();
