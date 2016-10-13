@@ -1,8 +1,8 @@
 /*
  * Ethan Hammond
  * 10/4/2016
- * First Three.js project, create scene with cube and sphere, basic animations and UI
- * TODO: Create PLY Loader
+ * Load CAD Files with file selection.
+ * TODO: Add Loading gif
  */
 
 "use strict";
@@ -21,22 +21,25 @@ function awaitButtonClicks() {
         $(".viewer").show();
         $(".footer").show();
         $(".homeScreen").hide();
-        animate();
         init();
     });
 
     $(".gfxcard").click( function() {
-        object = "card";
+        object = "gfxcard";
         objectHasValue = true;
         $(".viewer").show();
         $(".footer").show();
         $(".homeScreen").hide();
-        animate();
         init();
     });
 
-    $(".menu-toggle").click(function(e) {e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
+    $(".v10head").click(function() {
+        object = "v10head";
+        objectHasValue = true;
+        $(".viewer").show();
+        $(".footer").show();
+        $(".homeScreen").hide();
+        init();
     });
 }
 
@@ -68,7 +71,7 @@ function init() {
     plane.position.x = 0;
     plane.position.y = 0;
     plane.position.z = 0;
-    plane.receiveShadow = true;
+    plane.receiveShadow = false;
     scene.add(plane);
 
     //Set camera position and orientation
@@ -90,7 +93,7 @@ function init() {
     var loader = new THREE.STLLoader();
     loader.addEventListener('load', function (event){
         var geometry = event.content;
-        var material = new THREE.MeshLambertMaterial({ ambient: 0xFBB917,color: 0xD3D3D3 });
+        var material = new THREE.MeshLambertMaterial({color: 0xD3D3D3});
         var mesh = new THREE.Mesh(geometry, material);
         mesh.rotation.x = Math.PI;
         scene.add(mesh);
@@ -108,7 +111,6 @@ function init() {
     function renderScene() {
         //Update FPS or render-time counter
         stats.update();
-
         requestAnimationFrame(renderScene);
 
         //Render the animation
@@ -124,10 +126,6 @@ function init() {
         $("#Stats-output").append( stats.domElement );
         return stats;
     }
-}
-
-function animate() {
-    requestAnimationFrame( animate );
 }
 
 window.onload = function() {
