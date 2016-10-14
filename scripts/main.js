@@ -86,7 +86,7 @@ function init() {
 
     //Position the plane and add it to the scene
     var plane = new THREE.Mesh(planeGeometry,planeMaterial);
-    plane.rotation.x=-0.5*Math.PI;
+    plane.rotation.x = 0;
     plane.position.x = 0;
     plane.position.y = 0;
     plane.position.z = 0;
@@ -129,8 +129,8 @@ function init() {
             height = box.size().y;
             width = box.size().z;
             mesh.position.x = -(length/2);
-            mesh.position.y = (width/2);
-            mesh.position.z = -(height);
+            mesh.position.y = (height/2);
+            mesh.position.z = -(width/2);
             console.log(length,width,height);
             scene.add(mesh);
         });
