@@ -15,11 +15,16 @@ function loadInterface() {
 }
 
 function awaitButtonClicks() {
+    $(".homeNav").click(function() {
+        location.reload();
+    });
+
     $(".heatsink").click( function() {
         object = "Heatsink";
         objectHasValue = true;
         $(".viewer").show();
         $(".footer").show();
+        $(".navbar").hide();
         $(".homeScreen").hide();
         init();
     });
@@ -29,6 +34,7 @@ function awaitButtonClicks() {
         objectHasValue = true;
         $(".viewer").show();
         $(".footer").show();
+        $(".navbar").hide();
         $(".homeScreen").hide();
         init();
     });
@@ -38,6 +44,7 @@ function awaitButtonClicks() {
         objectHasValue = true;
         $(".viewer").show();
         $(".footer").show();
+        $(".navbar").hide();
         $(".homeScreen").hide();
         init();
     });

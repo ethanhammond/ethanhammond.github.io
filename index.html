@@ -25,19 +25,43 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Open Source CAD Viewer</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active homeNav"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">About</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Models <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#menu-toggle" class="heatsink loadItem menu-toggle">Heat Sink</a></li>
+                                    <li><a href="#menu-toggle" class="gfxcard loadItem menu-toggle">Graphics Card</a></li>
+                                    <li><a href="#menu-toggle" class="v10head loadItem menu-toggle">V10 Head</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 homeScreen">
-                        <h1 class="text-center">Please select which model to view.</h1>
-                        <div class="col-md-4">
-                            <a href="#menu-toggle" class="heatsink loadItem menu-toggle">Heat Sink</a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="#menu-toggle" class="gfxcard loadItem menu-toggle">Graphics Card</a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="#menu-toggle" class="v10head loadItem menu-toggle">V10 Head</a>
-                        </div>
+                        <h1 class="text-center">Content goes here</h1>
                     </div>
                     <div class="viewer">
                         <div id="WebGL-output"></div>
