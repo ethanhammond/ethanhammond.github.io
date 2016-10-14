@@ -128,9 +128,9 @@ function init() {
             length = box.size().x;
             height = box.size().y;
             width = box.size().z;
-            mesh.position.x = -(length/2);
-            mesh.position.y = (height/2);
-            mesh.position.z = -(width/2);
+            mesh.position.x = 0;
+            mesh.position.y = 0;
+            mesh.position.z = 0;
             console.log(length,width,height);
             scene.add(mesh);
         });

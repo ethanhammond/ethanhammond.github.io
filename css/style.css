@@ -28,11 +28,11 @@ body {
 
 
 /* Custom Footer CSS*/
-.container {
+.footerContainer {
     width: auto;
     padding: 0 15px;
 }
-.container .text-muted {
+.footerContainer .text-muted {
     margin: 20px 0 0 0;
 }
 
