@@ -58,8 +58,10 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMapEnabled = true;
 
-    var orbitControls = new THREE.OrbitControls(camera);
-    orbitControls.addEventListener( 'change', renderScene );
+    var controls = new THREE.OrbitControls( camera, renderer.domElement );
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
+    controls.enableZoom = false;
 
     //Set ground plane size and color
     var planeGeometry = new THREE.PlaneGeometry(0,0,0,0);
@@ -80,10 +82,17 @@ function init() {
     camera.position.z = 50;
     camera.lookAt(scene.position);
 
-    //Create spotlight aimed at objects and add to scene
-    var pointLight = new THREE.PointLight(0xffffff);
-    pointLight.position.set( 40, 60, -10);
-    scene.add(pointLight);
+    //Create pointlight aimed at objects and add to scene
+    var topLight = new THREE.PointLight(0xffffff);
+    topLight.position.set( 40, -60, -20);
+    scene.add(topLight);
+
+    //Create pointlight aimed at objects and add to scene
+    var bottomLight = new THREE.PointLight(0xffffff);
+    bottomLight.position.set(40, 60, 20);
+    scene.add(bottomLight);
+
+    window.addEventListener( 'resize', onWindowResize, false );
 
     //Add coordinate axis
     /*var axes = new THREE.AxisHelper( 100 );
@@ -105,13 +114,25 @@ function init() {
     //Place output of renderer in HTML
     $("#WebGL-output").append(renderer.domElement);
 
-    //Prep for animations
-    renderScene();
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+    }
 
-    function renderScene() {
-        //Update FPS or render-time counter
+    //Prep for animations
+    animate();
+
+    function animate() {
+        requestAnimationFrame( animate );
+        controls.update(); // required if controls.enableDamping = true, or if controls.autoRotate = true
         stats.update();
-        requestAnimationFrame(renderScene);
+        render();
+    }
+
+    function render() {
+        renderer.render( scene, camera );
+        requestAnimationFrame(render);
 
         //Render the animation
         renderer.render(scene, camera);
