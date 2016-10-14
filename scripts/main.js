@@ -9,21 +9,23 @@
 
 var object, stl, ply;
 
+function loadPartials() {
+    $('#header').load('header.html');
+    $('#footer').load('footer.html');
+}
+
 function loadInterface() {
     $(".viewer").hide();
     $(".homeScreen").show();
 }
 
 function awaitButtonClicks() {
-    $(".homeNav").click(function() {
-        location.reload();
-    });
-
     $(".heatsink").click( function() {
+        alert("click");
         object = "Heatsink";
         stl = true;
         $(".viewer").show();
-        $(".footer").show();
+        $(".footer").hide();
         $(".navbar").hide();
         $(".homeScreen").hide();
         init();
@@ -33,7 +35,7 @@ function awaitButtonClicks() {
         object = "gfxcard";
         stl = true;
         $(".viewer").show();
-        $(".footer").show();
+        $(".footer").hide();
         $(".navbar").hide();
         $(".homeScreen").hide();
         init();
@@ -43,7 +45,7 @@ function awaitButtonClicks() {
         object = "v10head";
         stl = true;
         $(".viewer").show();
-        $(".footer").show();
+        $(".footer").hide();
         $(".navbar").hide();
         $(".homeScreen").hide();
         init();
@@ -187,6 +189,7 @@ function init() {
 }
 
 window.onload = function() {
+    loadPartials();
     loadInterface();
     awaitButtonClicks();
 };
