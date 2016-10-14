@@ -81,7 +81,7 @@ function init() {
     controls.enableZoom = false;
 
     //Set ground plane size and color
-    var planeGeometry = new THREE.PlaneGeometry(0,0,0,0);
+    var planeGeometry = new THREE.PlaneBufferGeometry(0,0,0,0);
     var planeMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
 
     //Position the plane and add it to the scene
@@ -112,8 +112,8 @@ function init() {
     window.addEventListener( 'resize', onWindowResize, false );
 
     //Add coordinate axis
-    /*var axes = new THREE.AxisHelper( 100 );
-     scene.add(axes);*/
+    var axes = new THREE.AxisHelper( 100 );
+     scene.add(axes);
 
     if (stl == true) {
         //Load STL file from fixed location
@@ -123,6 +123,15 @@ function init() {
             var material = new THREE.MeshLambertMaterial({color: 0xD3D3D3});
             var mesh = new THREE.Mesh(geometry, material);
             mesh.rotation.x = Math.PI;
+            var box = new THREE.Box3().setFromObject(mesh);
+            var length, width, height;
+            length = box.size().x;
+            height = box.size().y;
+            width = box.size().z;
+            mesh.position.x = -(length/2);
+            mesh.position.y = (width/2);
+            mesh.position.z = -(height);
+            console.log(length,width,height);
             scene.add(mesh);
         });
         // STL file to be loaded
@@ -164,9 +173,6 @@ function init() {
     function render() {
         renderer.render( scene, camera );
         requestAnimationFrame(render);
-
-        //Render the animation
-        renderer.render(scene, camera);
     }
 
     function initStats() {
