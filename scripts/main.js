@@ -7,7 +7,7 @@
 
 "use strict";
 
-var object, objectHasValue;
+var object, stl, ply;
 
 function loadInterface() {
     $(".viewer").hide();
@@ -21,7 +21,7 @@ function awaitButtonClicks() {
 
     $(".heatsink").click( function() {
         object = "Heatsink";
-        objectHasValue = true;
+        stl = true;
         $(".viewer").show();
         $(".footer").show();
         $(".navbar").hide();
@@ -31,7 +31,7 @@ function awaitButtonClicks() {
 
     $(".gfxcard").click( function() {
         object = "gfxcard";
-        objectHasValue = true;
+        stl = true;
         $(".viewer").show();
         $(".footer").show();
         $(".navbar").hide();
@@ -41,7 +41,17 @@ function awaitButtonClicks() {
 
     $(".v10head").click(function() {
         object = "v10head";
-        objectHasValue = true;
+        stl = true;
+        $(".viewer").show();
+        $(".footer").show();
+        $(".navbar").hide();
+        $(".homeScreen").hide();
+        init();
+    });
+
+    $(".model").click(function() {
+        object = "model";
+        ply = true;
         $(".viewer").show();
         $(".footer").show();
         $(".navbar").hide();
@@ -105,18 +115,32 @@ function init() {
     /*var axes = new THREE.AxisHelper( 100 );
      scene.add(axes);*/
 
-    //Load STL file from fixed location
-    var loader = new THREE.STLLoader();
-    loader.addEventListener('load', function (event){
-        var geometry = event.content;
-        var material = new THREE.MeshLambertMaterial({color: 0xD3D3D3});
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.rotation.x = Math.PI;
-        scene.add(mesh);
-    });
-
-    // STL file to be loaded
-    loader.load("./assets/"+object+".stl");
+    if (stl == true) {
+        //Load STL file from fixed location
+        var stlLoader = new THREE.STLLoader();
+        stlLoader.addEventListener('load', function (event){
+            var geometry = event.content;
+            var material = new THREE.MeshLambertMaterial({color: 0xD3D3D3});
+            var mesh = new THREE.Mesh(geometry, material);
+            mesh.rotation.x = Math.PI;
+            scene.add(mesh);
+        });
+        // STL file to be loaded
+        stlLoader.load("./assets/"+object+".stl");
+    } else if (ply == true) {
+        var loader = new THREE.PLYLoader();
+        loader.load( './assets/model.ply', function ( geometry ) {
+            geometry.computeFaceNormals();
+            var material = new THREE.MeshLambertMaterial( { color: 0x0055ff } );
+            var mesh = new THREE.Mesh( geometry, material );
+            mesh.position.y = - 0.25;
+            mesh.rotation.x = - Math.PI / 2;
+            mesh.scale.multiplyScalar( 0.25 );
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            scene.add( mesh );
+        } );
+    }
 
     //Place output of renderer in HTML
     $("#WebGL-output").append(renderer.domElement);
