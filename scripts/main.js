@@ -10,59 +10,44 @@
 var object, stl, ply;
 
 function loadPartials() {
-    $('#header').load('header.html');
-    $('#footer').load('footer.html');
+    $('.header').load('header.html');
+    $('.footer').load('footer.html');
 }
 
-function loadInterface() {
-    $(".viewer").hide();
-    $(".homeScreen").show();
+function hideHomeButton() {
+    $(".homeButton").hide();
 }
 
 function awaitButtonClicks() {
     $(".heatsink").click( function() {
-        alert("click");
         object = "Heatsink";
         stl = true;
-        $(".viewer").show();
-        $(".footer").hide();
-        $(".navbar").hide();
-        $(".homeScreen").hide();
         init();
     });
 
     $(".gfxcard").click( function() {
         object = "gfxcard";
         stl = true;
-        $(".viewer").show();
-        $(".footer").hide();
-        $(".navbar").hide();
-        $(".homeScreen").hide();
         init();
     });
 
     $(".v10head").click(function() {
         object = "v10head";
         stl = true;
-        $(".viewer").show();
-        $(".footer").hide();
-        $(".navbar").hide();
-        $(".homeScreen").hide();
         init();
     });
 
     $(".model").click(function() {
         object = "model";
         ply = true;
-        $(".viewer").show();
-        $(".footer").show();
-        $(".navbar").hide();
-        $(".homeScreen").hide();
         init();
     });
 }
 
 function init() {
+    $(".header").hide();
+    $(".modelList").hide();
+    $(".homeButton").show();
     var stats = initStats();
 
     //Create a new scene
@@ -130,17 +115,14 @@ function init() {
             length = box.size().x;
             height = box.size().y;
             width = box.size().z;
-            mesh.position.x = 0;
-            mesh.position.y = 0;
-            mesh.position.z = 0;
             console.log(length,width,height);
             scene.add(mesh);
         });
         // STL file to be loaded
-        stlLoader.load("./assets/"+object+".stl");
+        stlLoader.load("../assets/"+object+".stl");
     } else if (ply == true) {
         var loader = new THREE.PLYLoader();
-        loader.load( './assets/model.ply', function ( geometry ) {
+        loader.load( '../assets/model.ply', function ( geometry ) {
             geometry.computeFaceNormals();
             var material = new THREE.MeshLambertMaterial( { color: 0x0055ff } );
             var mesh = new THREE.Mesh( geometry, material );
@@ -190,7 +172,7 @@ function init() {
 
 window.onload = function() {
     loadPartials();
-    loadInterface();
+    hideHomeButton();
     awaitButtonClicks();
 };
 
