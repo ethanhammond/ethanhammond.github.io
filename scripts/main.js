@@ -10,12 +10,34 @@
 var object, stl, ply;
 
 function loadPartials() {
-    $('.header').load('header.html');
-    $('.footer').load('footer.html');
+    $('.header').load('./pages/header.html');
+    $('.footer').load('./pages/footer.html');
 }
 
-function hideHomeButton() {
-    $(".homeButton").hide();
+function showIndex() {
+    $(".indexPage").show();
+    $(".aboutPage").hide();
+    $(".viewerPage").hide();
+}
+
+function awaitNavAction() {
+    $(".indexPageLink").click( function() {
+        $(".indexPage").show();
+        $(".aboutPage").hide();
+        $(".viewerPage").hide();
+    });
+
+    $(".aboutPageLink").click( function() {
+        $(".indexPage").hide();
+        $(".aboutPage").show();
+        $(".viewerPage").hide();
+    });
+
+    $(".viewerPageLink").click( function() {
+        $(".indexPage").hide();
+        $(".aboutPage").hide();
+        $(".viewerPage").show();
+    });
 }
 
 function awaitButtonClicks() {
@@ -170,9 +192,10 @@ function init() {
     }
 }
 
-window.onload = function() {
-    loadPartials();
-    hideHomeButton();
-    awaitButtonClicks();
-};
 
+$(document).ready(function() {
+    loadPartials();
+    showIndex();
+    awaitNavAction();
+    awaitButtonClicks();
+});
