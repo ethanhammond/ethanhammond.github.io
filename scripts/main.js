@@ -9,11 +9,6 @@
 
 var object, stl, ply;
 
-function loadPartials() {
-    $('.header').load('./pages/header.html');
-    $('.footer').load('./pages/footer.html');
-}
-
 function showIndex() {
     $(".indexPage").show();
     $(".aboutPage").hide();
@@ -141,10 +136,10 @@ function init() {
             scene.add(mesh);
         });
         // STL file to be loaded
-        stlLoader.load("../assets/"+object+".stl");
+        stlLoader.load("./assets/"+object+".stl");
     } else if (ply == true) {
         var loader = new THREE.PLYLoader();
-        loader.load( '../assets/model.ply', function ( geometry ) {
+        loader.load( './assets/model.ply', function ( geometry ) {
             geometry.computeFaceNormals();
             var material = new THREE.MeshLambertMaterial( { color: 0x0055ff } );
             var mesh = new THREE.Mesh( geometry, material );
@@ -194,7 +189,6 @@ function init() {
 
 
 $(document).ready(function() {
-    loadPartials();
     showIndex();
     awaitNavAction();
     awaitButtonClicks();
