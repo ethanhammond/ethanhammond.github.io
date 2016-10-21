@@ -9,13 +9,30 @@
 
 var object, stl, ply;
 
-function loadPartials() {
-    $('.header').load('header.html');
-    $('.footer').load('footer.html');
+function showIndex() {
+    $(".indexPage").show();
+    $(".aboutPage").hide();
+    $(".viewerPage").hide();
 }
 
-function hideHomeButton() {
-    $(".homeButton").hide();
+function awaitNavAction() {
+    $(".indexPageLink").click( function() {
+        $(".indexPage").show();
+        $(".aboutPage").hide();
+        $(".viewerPage").hide();
+    });
+
+    $(".aboutPageLink").click( function() {
+        $(".indexPage").hide();
+        $(".aboutPage").show();
+        $(".viewerPage").hide();
+    });
+
+    $(".viewerPageLink").click( function() {
+        $(".indexPage").hide();
+        $(".aboutPage").hide();
+        $(".viewerPage").show();
+    });
 }
 
 function awaitButtonClicks() {
@@ -119,10 +136,10 @@ function init() {
             scene.add(mesh);
         });
         // STL file to be loaded
-        stlLoader.load("../assets/"+object+".stl");
+        stlLoader.load("./assets/"+object+".stl");
     } else if (ply == true) {
         var loader = new THREE.PLYLoader();
-        loader.load( '../assets/model.ply', function ( geometry ) {
+        loader.load( './assets/model.ply', function ( geometry ) {
             geometry.computeFaceNormals();
             var material = new THREE.MeshLambertMaterial( { color: 0x0055ff } );
             var mesh = new THREE.Mesh( geometry, material );
@@ -170,9 +187,9 @@ function init() {
     }
 }
 
-window.onload = function() {
-    loadPartials();
-    hideHomeButton();
-    awaitButtonClicks();
-};
 
+$(document).ready(function() {
+    showIndex();
+    awaitNavAction();
+    awaitButtonClicks();
+});
